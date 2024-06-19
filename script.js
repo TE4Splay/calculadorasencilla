@@ -16,8 +16,20 @@ function clearDisplay() {
 function calculate() {
     const display = document.getElementById('display');
     try {
-        display.value = eval(display.value);
+        // Evaluar la expresión y formatear el resultado
+        const result = eval(display.value);
+        display.value = result.toLocaleString('de-DE');
     } catch {
         display.value = 'Error';
     }
 }
+
+// Función para permitir solo números y operadores
+function sanitizeInput(input) {
+    return input.replace(/[^0-9+\-*/.]/g, '');
+}
+
+// Eventos de teclado para permitir solo números y operadores
+document.getElementById('display').addEventListener('input', function (e) {
+    e.target.value = sanitizeInput(e.target.value);
+});
